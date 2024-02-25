@@ -1,6 +1,8 @@
 import { useCursors } from "./cursors-provider";
 import { useLayoutEffect, useRef, useCallback } from "react";
 
+// TODO: Replace with own cursor before publish
+//
 // WARNING
 // Icon is https://github.com/daviddarnes/mac-cursors
 // It is not free: license is the Apple User Agreement
