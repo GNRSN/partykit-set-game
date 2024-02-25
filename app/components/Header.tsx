@@ -1,4 +1,3 @@
-import type { User } from "@/party/utils/auth";
 import Link from "next/link";
 import Signout from "./Signout";
 import Avatar from "./Avatar";
