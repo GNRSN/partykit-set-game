@@ -8,8 +8,8 @@ import Footer from "./components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PartyKit Template",
-  description: "Example of using PartyKit with Next.js",
+  title: "Game of Set",
+  description: "Game of Set implementation using PartyKit with Next.js",
 };
 
 export default function RootLayout({

@@ -9,11 +9,7 @@ export default function Home() {
         <PlayerCounter />
       </section>
 
-      <section className="flex flex-col gap-2">
-        <h1 className="text-4xl font-medium pb-6">PartyKit Game of Set</h1>
-      </section>
-
-      <section>
+      <section className="w-full flex justify-center items-center">
         <GameOfSet cards={cards} />
       </section>
     </div>

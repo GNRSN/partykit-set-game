@@ -18,7 +18,7 @@ export default function Footer() {
         </div>
         <div className="flex flex-col justify-end">
           <Link
-            href="https://github.com/partykit/partykit-nextjs-chat-template"
+            href="https://github.com/GNRSN/partykit-set-game"
             className="bg-stone-200 hover:bg-stone-300 p-2 rounded text-stone-600 whitespace-nowrap"
           >
             View on GitHub
