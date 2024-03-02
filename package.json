@@ -36,6 +36,7 @@
     "y-partykit": "^0.0.9"
   },
   "devDependencies": {
-    "concurrently": "^8.2.1"
+    "concurrently": "^8.2.1",
+    "tailwindcss-bg-patterns": "0.3.0"
   }
 }
