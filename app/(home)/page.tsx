@@ -1,5 +1,6 @@
-import { GameOfSet, generateCards } from "./GameOfSet";
+import { GameOfSet } from "./GameOfSet";
 import { PlayerCounter } from "./PlayerCounter";
+import { generateCards } from "./card-logic";
 
 export default function Home() {
   const cards = generateCards();

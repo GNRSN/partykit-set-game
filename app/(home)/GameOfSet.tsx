@@ -1,56 +1,8 @@
-"use-client";
+"use client";
 
 import { cn } from "@/lib/utils";
-
-// REVIEW: Until cards are serverside this is a client component since it uses random
-
-const SHAPES = {
-  1: "diamond",
-  2: "squiggle",
-  3: "rounded",
-} as const;
-
-const COLORS = {
-  1: "red",
-  2: "green",
-  3: "purple",
-} as const;
-
-const FILLS = {
-  1: "outline",
-  2: "striped",
-  3: "solid",
-} as const;
-
-type CardShape = (typeof SHAPES)[keyof typeof SHAPES];
-type CardColor = (typeof COLORS)[keyof typeof COLORS];
-type CardPattern = (typeof FILLS)[keyof typeof FILLS];
-
-type Card = {
-  shape: CardShape;
-  color: CardColor;
-  fill: (typeof FILLS)[keyof typeof FILLS];
-  symbolCount: 1 | 2 | 3;
-};
-
-const randomize = () => Math.floor(Math.random() * 3 + 1) as 1 | 2 | 3;
-
-const generateCard = (): Card =>
-  Object.freeze({
-    shape: SHAPES[randomize()],
-    color: COLORS[randomize()],
-    fill: FILLS[randomize()],
-    symbolCount: randomize(),
-  });
-
-type RowsOfCards = Record<number, [Card, Card, Card]>;
-
-export const generateCards = () =>
-  Object.freeze({
-    1: [generateCard(), generateCard(), generateCard()],
-    2: [generateCard(), generateCard(), generateCard()],
-    3: [generateCard(), generateCard(), generateCard()],
-  } as RowsOfCards);
+import { useState } from "react";
+import { CardShape, type Card, RowsOfCards } from "./card-logic";
 
 const Diamond = ({ card }: { card: Card }) => (
   <svg width="20" height="80" viewBox="0 0 40 40">
@@ -58,7 +10,7 @@ const Diamond = ({ card }: { card: Card }) => (
   </svg>
 );
 const Squiggle = ({ card }: { card: Card }) => (
-  <svg width="25" height="25" viewBox="0 0 30 30">
+  <svg width="30" height="25" viewBox="0 0 30 30">
     {card.fill === "striped" && (
       <defs>
         <pattern
@@ -165,6 +117,8 @@ const SetCard = ({ card }: { card: Card }) => {
 };
 
 export const GameOfSet = ({ cards }: { cards: RowsOfCards }) => {
+  const [selection, setSelection] = useState([]);
+
   return (
     <div>
       {Object.entries(cards).map(([rowNumber, row]) => {
