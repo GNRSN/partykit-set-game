@@ -1,16 +1,67 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useState } from "react";
-import { CardShape, type Card, RowsOfCards } from "./card-logic";
+import { useEffect, useState } from "react";
+import { CardShape, type Card, RowsOfCards, validateSet } from "./card-logic";
 
 const Diamond = ({ card }: { card: Card }) => (
-  <svg width="20" height="80" viewBox="0 0 40 40">
-    <polygon points="20,0 40,40 20,80 0,40" fill={card.color} />
+  <svg width="20" height="80" viewBox="0 0 45 80">
+    {card.fill === "striped" && (
+      <defs>
+        <pattern
+          id={`diagonalHatch-${card.color}`}
+          patternUnits="userSpaceOnUse"
+          width="8"
+          height="8"
+        >
+          <path
+            d="M-1,1 l2,-2
+            M0,8 l4,-4
+            M7,9 l2,-2"
+            className={cn("stroke-2", {
+              "stroke-red-500": card.color === "red",
+              "stroke-green-600": card.color === "green",
+              "stroke-blue-600": card.color === "purple",
+            })}
+          />
+        </pattern>
+      </defs>
+    )}
+    <polygon
+      points="20,0 40,40 20,80 0,40"
+      className={cn("fill-white", {
+        "fill-red-500": card.fill === "solid" && card.color === "red",
+        "fill-green-600": card.fill === "solid" && card.color === "green",
+        "fill-blue-600": card.fill === "solid" && card.color === "purple",
+
+        "stroke-red-500 stroke-2":
+          card.fill === "outline" && card.color === "red",
+        "stroke-green-600 stroke-2":
+          card.fill === "outline" && card.color === "green",
+        "stroke-blue-600 stroke-2":
+          card.fill === "outline" && card.color === "purple",
+
+        // REVIEW: I couldn't get local url to apply through tailwind
+        //
+        // [`fill-[url(#diagonalHatch-${card.color})]`]: card.fill === "striped",
+        "stroke-red-500 stroke-1":
+          card.fill === "striped" && card.color === "red",
+        "stroke-green-600 stroke-1":
+          card.fill === "striped" && card.color === "green",
+        "stroke-blue-600 stroke-1":
+          card.fill === "striped" && card.color === "purple",
+      })}
+      style={{
+        fill:
+          card.fill === "striped"
+            ? `url(#diagonalHatch-${card.color})`
+            : undefined,
+      }}
+    />
   </svg>
 );
 const Squiggle = ({ card }: { card: Card }) => (
-  <svg width="30" height="25" viewBox="0 0 30 30">
+  <svg width="30" height="40" viewBox="-1 0 30 30">
     {card.fill === "striped" && (
       <defs>
         <pattern
@@ -61,7 +112,7 @@ const Squiggle = ({ card }: { card: Card }) => (
             ? `url(#diagonalHatch-${card.color})`
             : undefined,
       }}
-      d="M 20 4 L 20 4 C 24 8 6 8 12 10 C 18 12 26 20 18 22 Q 10 24 2 20 C -2 18 0 14 4 16 C 12 20 14 18 12 16 C 10 14 4.6667 14.6667 2 10 C 0 6 4 4 8 2 C 12 0 16 0 20 4"
+      d="M 20 6 L 20 6 C 24 12 9 9 12 15 C 13 17 26 30 18 33 Q 10 36 2 30 C -2 27 0 21 4 24 C 12 30 14 27 12 24 C 10 21 4.6667 22 2 15 C 0 9 4 6 8 3 C 12 0 16 0 20 6"
     />
   </svg>
 );
@@ -78,7 +129,7 @@ const Rounded = ({ card }: { card: Card }) => (
       "border-blue-600 border-2":
         card.fill === "outline" && card.color === "purple",
 
-      "pattern-lines pattern-bg-white pattern-size-1 outline":
+      "pattern-lines pattern-bg-white pattern-size-1 pattern-opacity-100 outline":
         card.fill === "striped",
       "pattern-red-500 outline-red-500 ":
         card.fill === "striped" && card.color === "red",
@@ -96,10 +147,24 @@ const SHAPES_TO_SYMBOLS = {
   rounded: Rounded,
 } as const satisfies Record<CardShape, any>;
 
-const SetCard = ({ card }: { card: Card }) => {
+const SetCard = ({
+  card,
+  selectHandler,
+  isSelected,
+}: {
+  card: Card;
+  selectHandler: (id: string) => void;
+  isSelected: boolean;
+}) => {
   return (
     <div // Card background
-      className="w-44 h-28 bg-white shadow-md rounded-md m-2 p-2 flex flex-row justify-center items-center gap-4"
+      className={cn(
+        "w-44 h-28 bg-white shadow-md rounded-md m-2 p-2 flex flex-row justify-center items-center gap-4",
+        {
+          "outline outline-2 outline-yellow-400": isSelected,
+        },
+      )}
+      onClick={() => selectHandler(card.id)}
     >
       {Array(card.symbolCount)
         .fill(0)
@@ -117,7 +182,27 @@ const SetCard = ({ card }: { card: Card }) => {
 };
 
 export const GameOfSet = ({ cards }: { cards: RowsOfCards }) => {
-  const [selection, setSelection] = useState([]);
+  const [selection, setSelection] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (selection.length >= 3) {
+      const cardsFlat = Object.values(cards).flat();
+      const isSet = validateSet(
+        selection.map((id) => {
+          const card = cardsFlat.find((c) => c.id === id);
+
+          if (!card) throw new Error("Card not found");
+          return card;
+        }),
+      );
+
+      if (isSet) {
+        window.alert("set!");
+      }
+
+      setSelection([]);
+    }
+  }, [selection, cards]);
 
   return (
     <div>
@@ -125,7 +210,18 @@ export const GameOfSet = ({ cards }: { cards: RowsOfCards }) => {
         return (
           <div key={`${rowNumber}`} className={`flex flex-row`}>
             {row.map((card, columnNumber) => (
-              <SetCard key={`${rowNumber}_${columnNumber}`} card={card} />
+              <SetCard
+                key={`${rowNumber}_${columnNumber}`}
+                card={card}
+                selectHandler={(id) => {
+                  if (selection.includes(id)) {
+                    setSelection(selection.filter((s) => s !== id));
+                  } else {
+                    setSelection([...selection, id]);
+                  }
+                }}
+                isSelected={selection.includes(card.id)}
+              />
             ))}
           </div>
         );
