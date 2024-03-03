@@ -2,7 +2,12 @@
 
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
-import { CardShape, type Card, RowsOfCards, validateSet } from "./card-logic";
+import {
+  type CardShape,
+  type Card,
+  type RowOfCards,
+  validateSet,
+} from "./card-logic";
 
 const Diamond = ({ card }: { card: Card }) => (
   <svg width="20" height="80" viewBox="0 0 45 80">
@@ -181,12 +186,12 @@ const SetCard = ({
   );
 };
 
-export const GameOfSet = ({ cards }: { cards: RowsOfCards }) => {
+export const GameOfSet = ({ cards }: { cards: RowOfCards[] }) => {
   const [selection, setSelection] = useState<string[]>([]);
 
   useEffect(() => {
     if (selection.length >= 3) {
-      const cardsFlat = Object.values(cards).flat();
+      const cardsFlat = cards.flat();
       const isSet = validateSet(
         selection.map((id) => {
           const card = cardsFlat.find((c) => c.id === id);
@@ -206,7 +211,8 @@ export const GameOfSet = ({ cards }: { cards: RowsOfCards }) => {
 
   return (
     <div>
-      {Object.entries(cards).map(([rowNumber, row]) => {
+      {cards.map((row, rowIdx) => {
+        const rowNumber = rowIdx + 1;
         return (
           <div key={`${rowNumber}`} className={`flex flex-row`}>
             {row.map((card, columnNumber) => (
