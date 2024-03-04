@@ -156,10 +156,14 @@ const SetCard = ({
   card,
   selectHandler,
   isSelected,
+  isWinFlash,
+  isLoseFlash,
 }: {
   card: Card;
   selectHandler: (id: string) => void;
   isSelected: boolean;
+  isWinFlash: boolean;
+  isLoseFlash: boolean;
 }) => {
   return (
     <div // Card background
@@ -167,6 +171,8 @@ const SetCard = ({
         "w-44 h-28 bg-white shadow-md rounded-md m-2 p-2 flex flex-row justify-center items-center gap-4",
         {
           "outline outline-2 outline-yellow-400": isSelected,
+          "outline outline-2 outline-green-400": isWinFlash,
+          "outline outline-2 outline-red-400": isLoseFlash,
         },
       )}
       onClick={() => selectHandler(card.id)}
@@ -188,6 +194,8 @@ const SetCard = ({
 
 export const GameOfSet = ({ cards }: { cards: RowOfCards[] }) => {
   const [selection, setSelection] = useState<string[]>([]);
+  const [isWinFlash, setIsWinFlash] = useState<string[]>([]);
+  const [isLoseFlash, setIsLoseFlash] = useState<string[]>([]);
 
   useEffect(() => {
     if (selection.length >= 3) {
@@ -202,7 +210,16 @@ export const GameOfSet = ({ cards }: { cards: RowOfCards[] }) => {
       );
 
       if (isSet) {
-        window.alert("set!");
+        setIsWinFlash([...selection]);
+        setTimeout(() => {
+          setIsWinFlash([]);
+        }, 300);
+        // TODO: Serverside, remove cards and stack rows, then add more cards as needed
+      } else {
+        setIsLoseFlash([...selection]);
+        setTimeout(() => {
+          setIsLoseFlash([]);
+        }, 300);
       }
 
       setSelection([]);
@@ -227,6 +244,8 @@ export const GameOfSet = ({ cards }: { cards: RowOfCards[] }) => {
                   }
                 }}
                 isSelected={selection.includes(card.id)}
+                isWinFlash={isWinFlash.includes(card.id)}
+                isLoseFlash={isLoseFlash.includes(card.id)}
               />
             ))}
           </div>

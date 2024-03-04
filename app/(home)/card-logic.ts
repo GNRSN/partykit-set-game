@@ -62,6 +62,9 @@ export const validateSet = (cards: Card[]): boolean => {
     const s = new Set(cards.map((card) => card[property]));
     // 1 or 3 means all values match or a unique
     isSet = s.size !== 2;
+    if (!isSet) {
+      console.log(`Property "${property}" doesn't match`, Array.from(s));
+    }
   });
 
   return isSet;
@@ -98,7 +101,7 @@ export const generateCards = (existingRows: RowOfCards[] = []) => {
   while (!hasPossibleSet && rows.length < 10) {
     rows.push([generateCard(), generateCard(), generateCard()]);
 
-    hasPossibleSet = findPossibleSets(rows).length > 0;
+    hasPossibleSet = rows.length >= 3 && findPossibleSets(rows).length > 0;
   }
 
   return rows;
