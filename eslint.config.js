@@ -1,21 +1,21 @@
-import globals from "globals";
-import nextPlugin from "@next/eslint-plugin-next";
-import reactPlugin from "eslint-plugin-react";
-import hooksPlugin from "eslint-plugin-react-hooks";
+// @ts-check
 
-export default [
+import tsEslint from "typescript-eslint";
+// @ts-expect-error No types
+import eslint from "@eslint/js";
+// @ts-expect-error No types
+import nextPlugin from "@next/eslint-plugin-next";
+// @ts-expect-error No types
+import reactPlugin from "eslint-plugin-react";
+// @ts-expect-error No types
+import hooksPlugin from "eslint-plugin-react-hooks";
+import globals from "globals";
+
+export default tsEslint.config(
+  eslint.configs.recommended,
+  ...tsEslint.configs.recommended,
   {
-    languageOptions: {
-      ecmaVersion: "latest",
-      sourceType: "module",
-    },
-    rules: {
-      semi: "warn",
-      "no-trailing-spaces": "warn",
-      "comma-dangle": ["warn", "always-multiline"],
-    },
-  },
-  {
+    // @ts-expect-error https://eslint.org/docs/latest/use/configure/configuration-files-new#using-plugin-rules
     plugins: {
       react: reactPlugin,
     },
@@ -46,4 +46,12 @@ export default [
   {
     ignores: [".next/*", ".partykit/*"],
   },
-];
+  {
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+    files: ["next.config.js"],
+  },
+);
