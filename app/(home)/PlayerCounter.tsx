@@ -1,5 +1,5 @@
 "use client";
-import { useCursors } from "./cursors-provider";
+import { useCursors } from "../components/cursors/cursors-provider";
 
 export function PlayerCounter() {
   const { getCount } = useCursors();
