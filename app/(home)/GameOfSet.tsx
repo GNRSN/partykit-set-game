@@ -7,7 +7,7 @@ import {
   type Card,
   type RowOfCards,
   validateSet,
-} from "./card-logic";
+} from "../../game-logic/card-logic";
 
 const Diamond = ({ card }: { card: Card }) => (
   <svg width="20" height="80" viewBox="0 0 45 80">
