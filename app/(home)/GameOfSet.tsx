@@ -150,7 +150,7 @@ const SHAPES_TO_SYMBOLS = {
   diamond: Diamond,
   squiggle: Squiggle,
   rounded: Rounded,
-} as const satisfies Record<CardShape, any>;
+} as const satisfies Record<CardShape, unknown>;
 
 const SetCard = ({
   card,
