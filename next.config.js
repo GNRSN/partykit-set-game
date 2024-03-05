@@ -7,7 +7,7 @@ const PARTYKIT_PROTOCOL =
 const PARTYKIT_URL = `${PARTYKIT_PROTOCOL}://${PARTYKIT_HOST}`;
 
 /** @type {import('next').NextConfig} */
-export default {
+module.exports = {
   images: {
     domains: ["localhost", "avatars.githubusercontent.com", "pbs.twimg.com"],
   },
