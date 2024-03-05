@@ -1,4 +1,4 @@
-import type * as Party from "partykit/server";
+import type * as PartyKit from "partykit/server";
 
 export type PartialCursor = {
   x: number;
@@ -34,13 +34,13 @@ type CountryType = string | null;
 
 type CursorState = Partial<Cursor>;
 
-type CursorConnection = Party.Connection<CursorState>;
+type CursorConnection = PartyKit.Connection<CursorState>;
 
-export default class CursorsServer implements Party.Server {
-  constructor(public party: Party.Party) {}
+export default class CursorsServer implements PartyKit.Server {
+  constructor(public party: PartyKit.Party) {}
   onConnect(
     connection: CursorConnection,
-    { request }: Party.ConnectionContext
+    { request }: PartyKit.ConnectionContext,
   ) {
     const country = (request.cf?.country || null) as CountryType;
 
@@ -52,7 +52,7 @@ export default class CursorsServer implements Party.Server {
 
     // On connect, send a "sync" message to the new connection
     // Pull the cursor from all websocket attachments, excluding self
-    let cursors = <CursorsMap>{};
+    const cursors = <CursorsMap>{};
     for (const socket of this.party.getConnections<CursorState>()) {
       const state = socket.state || {};
       if (
