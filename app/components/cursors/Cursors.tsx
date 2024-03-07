@@ -2,7 +2,7 @@
 
 import { useCursors } from "./cursors-provider";
 import OtherCursor from "./OtherCursor";
-import MyCursor from "./MyCursor";
+// import MyCursor from "./MyCursor";
 
 export default function Cursors() {
   const { others } = useCursors();
