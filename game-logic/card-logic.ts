@@ -1,34 +1,5 @@
 import { nanoid } from "nanoid";
-
-const SHAPES = {
-  1: "diamond",
-  2: "squiggle",
-  3: "rounded",
-} as const;
-
-const COLORS = {
-  1: "red",
-  2: "green",
-  3: "purple",
-} as const;
-
-const FILLS = {
-  1: "outline",
-  2: "striped",
-  3: "solid",
-} as const;
-
-export type CardShape = (typeof SHAPES)[keyof typeof SHAPES];
-export type CardColor = (typeof COLORS)[keyof typeof COLORS];
-export type CardPattern = (typeof FILLS)[keyof typeof FILLS];
-
-export type Card = {
-  id: string;
-  shape: CardShape;
-  color: CardColor;
-  fill: (typeof FILLS)[keyof typeof FILLS];
-  symbolCount: 1 | 2 | 3;
-};
+import { COLORS, Card, FILLS, RowOfCards, SHAPES } from "./card-types";
 
 const randomize = () => Math.floor(Math.random() * 3 + 1) as 1 | 2 | 3;
 
@@ -63,14 +34,12 @@ export const validateSet = (cards: Card[]): boolean => {
     // 1 or 3 means all values match or a unique
     isSet = s.size !== 2;
     if (!isSet) {
-      console.log(`Property "${property}" doesn't match`, Array.from(s));
+      // console.log(`Property "${property}" doesn't match`, Array.from(s));
     }
   });
 
   return isSet;
 };
-
-export type RowOfCards = [Card, Card, Card];
 
 export const findPossibleSets = (rows: RowOfCards[]) => {
   const possibleSets: [string, string, string][] = [];
@@ -106,3 +75,29 @@ export const generateCards = (existingRows: RowOfCards[] = []) => {
 
   return rows;
 };
+
+export const pickCards = ({
+  cards,
+  picked,
+}: {
+  cards: RowOfCards[];
+  picked: string[];
+}) =>
+  cards.flat().reduce<{
+    pickedCards: Card[];
+    remainingCards: Card[];
+  }>(
+    (memo, card) => {
+      if (picked.includes(card.id)) {
+        memo.pickedCards.push(card);
+      } else {
+        memo.remainingCards.push(card);
+      }
+
+      return memo;
+    },
+    {
+      pickedCards: [],
+      remainingCards: [],
+    },
+  );
