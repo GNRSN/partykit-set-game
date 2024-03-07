@@ -3,7 +3,8 @@
   "name": "partykit-nextjs-chat-template",
   "compatibilityDate": "2023-10-13",
   "parties": {
-    "cursors": "party/cursors.ts"
+    "cursors": "party/cursors.ts",
+    "game": "party/game-of-set/server.ts"
   },
   "serve": {
     "path": "party/public"
