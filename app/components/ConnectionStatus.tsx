@@ -27,7 +27,7 @@ export default function ConnectionStatus(props: {
 }) {
   const { socket } = props;
   const [readyState, setReadyState] = useState<number>(
-    socket?.readyState === 1 ? 1 : 0
+    socket?.readyState === 1 ? 1 : 0,
   );
   const display = readyStates[readyState as keyof typeof readyStates];
 

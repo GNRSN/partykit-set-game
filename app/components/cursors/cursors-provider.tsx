@@ -51,34 +51,29 @@ export default function CursorsProvider(props: { children: React.ReactNode }) {
     if (socket) {
       const onMessage = (evt: WebSocketEventMap["message"]) => {
         const msg = JSON.parse(evt.data as string);
-        switch (msg.type) {
-          case "sync":
-            const newOthers = { ...msg.cursors };
-            setOthers(newOthers);
-            break;
-          case "update":
-            const other = {
-              x: msg.x,
-              y: msg.y,
-              country: msg.country,
-              lastUpdate: msg.lastUpdate,
-              pointer: msg.pointer,
-            };
-            setOthers((others) => ({ ...others, [msg.id]: other }));
-            break;
-          case "remove":
-            setOthers((others) => {
-              const newOthers = { ...others };
-              delete newOthers[msg.id];
-              return newOthers;
-            });
-            break;
+        if (msg.type === "sync") {
+          const newOthers = { ...msg.cursors };
+          setOthers(newOthers);
+        } else if (msg.type === "update") {
+          const other = {
+            x: msg.x,
+            y: msg.y,
+            country: msg.country,
+            lastUpdate: msg.lastUpdate,
+            pointer: msg.pointer,
+          };
+          setOthers((others) => ({ ...others, [msg.id]: other }));
+        } else if (msg.type === "remove") {
+          setOthers((others) => {
+            const newOthers = { ...others };
+            delete newOthers[msg.id];
+            return newOthers;
+          });
         }
       };
       socket.addEventListener("message", onMessage);
 
       return () => {
-        // @ts-ignore
         socket.removeEventListener("message", onMessage);
       };
     }
