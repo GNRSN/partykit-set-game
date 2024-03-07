@@ -18,7 +18,7 @@ const SetSchema = z.object({
 const CardsUpdateSchema = z.object({
   type: z.literal("update"),
   cards: z.array(z.array(CardSchema).length(3)),
-  // LATER: Add score
+  score: z.number(),
 });
 
 export type CardsUpdate = z.infer<typeof CardsUpdateSchema>;
@@ -40,11 +40,12 @@ export const parseUpdateMessage = (message: string) => {
   return CardsUpdateSchema.parse(JSON.parse(message));
 };
 
-export const createUpdateMessage = (cards: RowOfCards[]) => {
+export const createUpdateMessage = (cards: RowOfCards[], score: number) => {
   return JSON.stringify(
     CardsUpdateSchema.parse({
       type: "update",
       cards,
+      score,
     }),
   );
 };

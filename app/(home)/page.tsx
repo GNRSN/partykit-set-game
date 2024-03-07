@@ -27,6 +27,7 @@ export default async function Home() {
         <GameOfSet
           initial={{
             cards: [], //res.cards,
+            score: 0,
           }}
           party={{
             roomId,

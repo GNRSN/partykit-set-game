@@ -26,13 +26,13 @@ export default class SetGameServer implements PartyKit.Server {
   }
 
   async onRequest(req: PartyKit.Request) {
-    // for all HTTP requests, respond with the current reaction counts
-    return json(createUpdateMessage(this.cards));
+    // for all HTTP requests, respond with the current state
+    return json(createUpdateMessage(this.cards, this.score));
   }
 
   onConnect(conn: PartyKit.Connection) {
-    // on WebSocket connection, send the current reaction counts
-    conn.send(createUpdateMessage(this.cards));
+    // on WebSocket connection, send the current state
+    conn.send(createUpdateMessage(this.cards, this.score));
   }
 
   onMessage(message: string, sender: PartyKit.Connection) {
@@ -56,8 +56,8 @@ export default class SetGameServer implements PartyKit.Server {
   updateAndBroadcastCardsAfterSet(remainingCards: Card[]) {
     // update stored reaction counts
     let rowMemo: Card[] = [];
-    this.cards = generateCards(
-      remainingCards.reduce<RowOfCards[]>((memo, card) => {
+    const remainingCardsAsRows = remainingCards.reduce<RowOfCards[]>(
+      (memo, card) => {
         rowMemo.push(card);
 
         if (rowMemo.length === 3) {
@@ -66,11 +66,14 @@ export default class SetGameServer implements PartyKit.Server {
         }
 
         return memo;
-      }, []),
+      },
+      [],
     );
+
+    this.cards = generateCards(remainingCardsAsRows);
     this.score += 1;
     // send updated counts to all connected listeners
-    this.room.broadcast(createUpdateMessage(this.cards));
+    this.room.broadcast(createUpdateMessage(this.cards, this.score));
     // save score to disk (fire and forget)
     this.room.storage.put("score", this.score);
   }

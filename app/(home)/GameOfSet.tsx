@@ -7,7 +7,11 @@ import { validateSet } from "../../game-logic/card-logic";
 import { Diamond, Rounded, Squiggle } from "./CardSymbols";
 
 import usePartySocket, { useWebSocket } from "partysocket/react";
-import { CardsUpdate, createSetMessage } from "@/party/game-of-set/types";
+import {
+  CardsUpdate,
+  createSetMessage,
+  parseUpdateMessage,
+} from "@/party/game-of-set/types";
 import { Card, CardShape, RowOfCards } from "@/game-logic/card-types";
 
 const SHAPES_TO_SYMBOLS = {
@@ -65,12 +69,14 @@ type PageProps = {
   };
   initial: {
     cards: RowOfCards[];
+    score: number;
   };
 };
 
 export const GameOfSet = ({ initial, party }: PageProps) => {
   // use server-rendered initial data
   const [cards, setCards] = useState(initial.cards);
+  const [score, setScore] = useState(initial.score);
 
   // update state when new reactions come in
   const socket = usePartySocket({
@@ -78,8 +84,9 @@ export const GameOfSet = ({ initial, party }: PageProps) => {
     party: "game",
     room: party.roomId,
     onMessage: (event) => {
-      const message = JSON.parse(event.data) as CardsUpdate;
+      const message = parseUpdateMessage(event.data);
       setCards(message.cards as RowOfCards[]);
+      setScore(message.score);
     },
   });
 
@@ -120,7 +127,10 @@ export const GameOfSet = ({ initial, party }: PageProps) => {
   }, [selection, cards, socket]);
 
   return (
-    <div>
+    <div className="relative">
+      <div className="text-xl font-bold absolute top-4 -right-12 z-10 text-zinc-400">
+        {score} pt
+      </div>
       {cards.map((row, rowIdx) => {
         const rowNumber = rowIdx + 1;
         return (
