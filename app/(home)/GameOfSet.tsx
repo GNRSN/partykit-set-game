@@ -6,9 +6,8 @@ import { cn } from "@/lib/utils";
 import { validateSet } from "../../game-logic/card-logic";
 import { Diamond, Rounded, Squiggle } from "./CardSymbols";
 
-import usePartySocket, { useWebSocket } from "partysocket/react";
+import usePartySocket from "partysocket/react";
 import {
-  CardsUpdate,
   createSetMessage,
   parseUpdateMessage,
 } from "@/party/game-of-set/types";
@@ -38,9 +37,12 @@ const SetCard = ({
   return (
     <div // Card background
       className={cn(
-        "w-44 h-28 bg-white shadow-md rounded-md m-2 p-2 flex flex-row justify-center items-center gap-4",
+        "w-44 h-28 bg-white shadow-md hover:shadow-lg transition-shadow rounded-md m-2 p-2 flex flex-row justify-center items-center gap-4",
         {
-          "outline outline-2 outline-yellow-400": isSelected,
+          "hover:outline outline-2 outline-zinc-100":
+            !isSelected && !isWinFlash && !isLoseFlash,
+          "outline outline-2 outline-yellow-400 hover:outline-yellow-500":
+            isSelected,
           "outline outline-2 outline-green-400": isWinFlash,
           "outline outline-2 outline-red-400": isLoseFlash,
         },
