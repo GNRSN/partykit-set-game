@@ -40,6 +40,10 @@ export const parseUpdateMessage = (message: string) => {
   return CardsUpdateSchema.parse(JSON.parse(message));
 };
 
+export const parseUpdateResponse = (json: object) => {
+  return CardsUpdateSchema.parse(json);
+};
+
 export const createUpdateMessage = (cards: RowOfCards[], score: number) => {
   return JSON.stringify(
     CardsUpdateSchema.parse({

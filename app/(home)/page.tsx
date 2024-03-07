@@ -1,6 +1,8 @@
 import { GameOfSet } from "./GameOfSet";
 import { PlayerCounter } from "./PlayerCounter";
-import { PARTYKIT_HOST } from "../env";
+import { PARTYKIT_HOST, PARTYKIT_URL } from "../env";
+import { parseUpdateResponse } from "@/party/game-of-set/types";
+import { RowOfCards } from "@/game-logic/card-types";
 
 const ROOM_ID = "shared-game";
 
@@ -8,13 +10,16 @@ export default async function Home() {
   // fetch initial data in server component for server rendering
   const roomHost = PARTYKIT_HOST;
   const roomId = ROOM_ID;
-  // const req = await fetch(`https://${roomHost}/game/${roomId}`, {
-  //   method: "GET",
-  //   next: { revalidate: 0 },
-  // });
+  const req = await fetch(`${PARTYKIT_URL}/parties/game/${roomId}`, {
+    method: "GET",
+    next: { revalidate: 0 },
+  });
 
   // onRequest handler will respond with initial data
-  // const res = (await req.json()) as { cards: RowOfCards[] };
+  if (req.status !== 200) {
+    console.error("fetch response status:", req.status);
+  }
+  const message = parseUpdateResponse(await req.json());
 
   // pass initial data to client, which will connect to the room via WebSockets
   return (
@@ -26,8 +31,8 @@ export default async function Home() {
       <section className="w-full flex justify-center items-center">
         <GameOfSet
           initial={{
-            cards: [], //res.cards,
-            score: 0,
+            cards: message.cards as RowOfCards,
+            score: message.score,
           }}
           party={{
             roomId,

@@ -114,7 +114,6 @@ export const GameOfSet = ({ initial, party }: PageProps) => {
         setTimeout(() => {
           setIsWinFlash([]);
         }, 300);
-        // TODO: Serverside, remove cards and stack rows, then add more cards as needed
       } else {
         setIsLoseFlash([...selection]);
         setTimeout(() => {
