@@ -28,7 +28,7 @@ export const GameOfMatch = ({ initial, party }: PageProps) => {
   const [cards, setCards] = useState(initial.cards);
   const [score, setScore] = useState(initial.score);
 
-  // update state when new reactions come in
+  // update state when sets are found
   const socket = usePartySocket({
     host: party.roomHost,
     party: "game",
@@ -76,33 +76,40 @@ export const GameOfMatch = ({ initial, party }: PageProps) => {
   }, [selection, cards, socket]);
 
   return (
-    <div className="relative">
-      <div className="text-xl font-bold absolute top-4 -right-12 z-10 text-zinc-400">
-        {score} pt
-      </div>
-      {cards.map((row, rowIdx) => {
-        const rowNumber = rowIdx + 1;
-        return (
-          <div key={`${rowNumber}`} className={`flex flex-row`}>
-            {row.map((card, columnNumber) => (
-              <GameCard
-                key={`${rowNumber}_${columnNumber}`}
-                card={card}
-                selectHandler={(id) => {
-                  if (selection.includes(id)) {
-                    setSelection(selection.filter((s) => s !== id));
-                  } else {
-                    setSelection([...selection, id]);
-                  }
-                }}
-                isSelected={selection.includes(card.id)}
-                isWinFlash={isWinFlash.includes(card.id)}
-                isLoseFlash={isLoseFlash.includes(card.id)}
-              />
-            ))}
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <section>
+        <div className="italic text-xs text-zinc-500 text-center">
+          {score} matches found
+        </div>
+      </section>
+      <section className="w-full flex justify-center items-center">
+        <div className="relative">
+          {cards.map((row, rowIdx) => {
+            const rowNumber = rowIdx + 1;
+            return (
+              // REVIEW: Using index as key may be risky here
+              <div key={`${rowNumber}`} className={`flex flex-row`}>
+                {row.map((card, columnNumber) => (
+                  <GameCard
+                    key={`${rowNumber}_${columnNumber}`}
+                    card={card}
+                    selectHandler={(id) => {
+                      if (selection.includes(id)) {
+                        setSelection(selection.filter((s) => s !== id));
+                      } else {
+                        setSelection([...selection, id]);
+                      }
+                    }}
+                    isSelected={selection.includes(card.id)}
+                    isWinFlash={isWinFlash.includes(card.id)}
+                    isLoseFlash={isLoseFlash.includes(card.id)}
+                  />
+                ))}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    </>
   );
 };

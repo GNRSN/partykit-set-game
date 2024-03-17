@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import type { CursorsMap, PartialCursor } from "@/party-kit/cursors";
 import usePartySocket from "partysocket/react";
 
-import ConnectionStatus from "@/app/components/ConnectionStatus";
+import { ConnectionStatus } from "@/app/components/ConnectionStatus";
 
 import { env } from "../../env";
 
@@ -24,11 +24,11 @@ export const CursorsContext = createContext<CursorsContextType>({
   getCount: () => 0,
 });
 
-export function useCursors() {
+export function useCursorsContext() {
   return useContext(CursorsContext);
 }
 
-export default function CursorsProvider(props: { children: React.ReactNode }) {
+export function CursorsProvider(props: { children: React.ReactNode }) {
   const [myCursor, setMyCursor] = useState<PartialCursor | null>(null);
   const [myId, setMyId] = useState<string | null>(null);
   const [dimensions, setDimensions] = useState<{
@@ -141,7 +141,11 @@ export default function CursorsProvider(props: { children: React.ReactNode }) {
 
   const getCount = () => {
     const othersCount = Object.keys(others).length;
-    return othersCount + (myCursor ? 1 : 0);
+    return othersCount + (socket.readyState === socket.OPEN ? 1 : 0);
+    // REVIEW: It felt bad to have it say 0 until you moved the mouse, even if you're maybe not visible to other players yet?
+    // LATER: Investigate if we could just force send the cursors position when we attach listeners
+    //
+    // return othersCount + (myCursor ? 1 : 0);
   };
 
   return (
@@ -151,7 +155,7 @@ export default function CursorsProvider(props: { children: React.ReactNode }) {
         myCursor: myCursor,
         myId: myId,
         windowDimensions: dimensions,
-        getCount: getCount,
+        getCount,
       }}
     >
       <ConnectionStatus socket={socket} />

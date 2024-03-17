@@ -1,7 +1,7 @@
 import { useCallback, useLayoutEffect, useRef } from "react";
 import { Cursor } from "@/party-kit/cursors";
 
-import { useCursors } from "./cursors-provider";
+import { useCursorsContext } from "./cursors-provider";
 
 function getFlagEmoji(countryCode: string) {
   const codePoints = countryCode
@@ -13,7 +13,7 @@ function getFlagEmoji(countryCode: string) {
 
 function OtherCursorImpl(props: { cursor: Cursor }) {
   const { cursor } = props;
-  const { windowDimensions } = useCursors();
+  const { windowDimensions } = useCursorsContext();
   const fill = "#04f";
   const rCursor = useRef<HTMLDivElement>(null);
 
@@ -39,29 +39,27 @@ function OtherCursorImpl(props: { cursor: Cursor }) {
   const pointer = cursor.pointer ?? "mouse";
 
   return (
-    <div className="absolute" ref={rCursor} style={{ left: -10, top: -10 }}>
+    <div className="absolute" ref={rCursor} style={{ left: 9, top: -3 }}>
       {pointer === "touch" ? (
         <svg
-          height="32"
-          viewBox="0 0 32 32"
-          width="32"
+          height="25"
+          viewBox="0 0 20 20"
+          width="25"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g fill="none" fillRule="evenodd" transform="translate(9 8)">
-            <path d="M 0 6 L 10 0 L 6 11 L 4 7 L 0 6" fill={fill} />
-            <path d="M 0 6 L 10 0 L 6 11 L 4 7 L 0 6" fill="#fff" />
+          <g fill="none" fillRule="evenodd" transform="translate(9 9)">
+            <path d="M 10 6 L 0 0 L 5 11 L 6 7 L 10 6" fill={fill} />
           </g>
         </svg>
       ) : (
         <svg
-          height="32"
-          viewBox="0 0 32 32"
-          width="32"
+          height="25"
+          viewBox="0 0 20 20"
+          width="25"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g fill="none" fillRule="evenodd" transform="translate(10 7)">
-            <path d="M 0 6 L 10 0 L 6 11 L 4 7 L 0 6" fill="#fff" />
-            <path d="M 0 6 L 10 0 L 6 11 L 4 7 L 0 6" fill={fill} />
+          <g fill="none" fillRule="evenodd" transform="translate(9 9)">
+            <path d="M 10 6 L 0 0 L 5 11 L 6 7 L 10 6" fill={fill} />
           </g>
         </svg>
       )}
@@ -77,7 +75,7 @@ function OtherCursorImpl(props: { cursor: Cursor }) {
 
 export default function OtherCursor(props: { id: string }) {
   const { id } = props;
-  const { others } = useCursors();
+  const { others } = useCursorsContext();
   const cursor = others[id];
   if (!cursor) return null;
   return <OtherCursorImpl cursor={cursor} />;
