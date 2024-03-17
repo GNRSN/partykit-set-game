@@ -7,7 +7,7 @@ export const env = createEnv({
     // OPEN_AI_API_KEY: z.string().min(1),
   },
   client: {
-    NEXT_PUBLIC_PARTYKIT_HOST: z.string().url(),
+    NEXT_PUBLIC_PARTYKIT_HOST: z.string().min(1),
     // NEXT_PUBLIC_PUBLISHABLE_KEY: z.string().min(1),
   },
   // If you're using Next.js < 13.4.4, you'll need to specify the runtimeEnv manually
