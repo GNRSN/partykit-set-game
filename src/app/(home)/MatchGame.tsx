@@ -87,6 +87,7 @@ export const GameOfMatch = ({ initial, party }: PageProps) => {
           {cards.map((row, rowIdx) => {
             const rowNumber = rowIdx + 1;
             return (
+              // REVIEW: Using index as key may be risky here
               <div key={`${rowNumber}`} className={`flex flex-row`}>
                 {row.map((card, columnNumber) => (
                   <GameCard
