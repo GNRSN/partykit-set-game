@@ -1,15 +1,23 @@
 import { RowOfCards } from "@/game-logic/card-types";
 import { parseUpdateResponse } from "@/party-kit/match-game/types";
 
-import { PARTYKIT_HOST, PARTYKIT_URL } from "../env";
+import { env } from "../../env";
 import { GameOfMatch } from "./MatchGame";
 import { PlayerCounter } from "./PlayerCounter";
+
+const PARTYKIT_PROTOCOL =
+  env.NEXT_PUBLIC_PARTYKIT_HOST.startsWith("localhost") ||
+  env.NEXT_PUBLIC_PARTYKIT_HOST.startsWith("127.0.0.1")
+    ? "http"
+    : "https";
+
+const PARTYKIT_URL = `${PARTYKIT_PROTOCOL}://${env.NEXT_PUBLIC_PARTYKIT_HOST}`;
 
 const ROOM_ID = "shared-game";
 
 export default async function Home() {
   // fetch initial data in server component for server rendering
-  const roomHost = PARTYKIT_HOST;
+  const roomHost = env.NEXT_PUBLIC_PARTYKIT_HOST;
   const roomId = ROOM_ID;
 
   // REVIEW: This fetch fails when server is hibernating, run with hibernate false or wrap with try-catch and handle?
