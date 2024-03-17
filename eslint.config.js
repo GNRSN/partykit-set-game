@@ -19,7 +19,9 @@ module.exports = tsEslint.config(
   eslint.configs.recommended,
   ...tsEslint.configs.recommended,
   {
-    // @ts-expect-error https://eslint.org/docs/latest/use/configure/configuration-files-new#using-plugin-rules
+    // REVIEW: During build, vercel thinks this is an unused ts-expect-error
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore https://eslint.org/docs/latest/use/configure/configuration-files-new#using-plugin-rules
     plugins: {
       react: reactPlugin,
     },
@@ -56,7 +58,7 @@ module.exports = tsEslint.config(
     files: ["next.config.js"],
   },
   {
-    // Some configs require .js extention and has to be in common js
+    // Some configs require .js extension and has to be in common js
     languageOptions: {
       sourceType: "commonjs",
     },
