@@ -1,0 +1,12 @@
+{
+  "main": "src/party-kit/main.ts",
+  "name": "partykit-match-game",
+  "compatibilityDate": "2023-10-13",
+  "parties": {
+    "cursors": "src/party-kit/cursors.ts",
+    "game": "src/party-kit/match-game/server.ts"
+  },
+  "serve": {
+    "path": "src/party-kit/public"
+  }
+}
