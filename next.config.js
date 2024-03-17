@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const { fileURLToPath } = require("node:url");
-const createJiti = require("jiti");
-
-const jiti = createJiti(fileURLToPath(import.meta.url));
+const jiti = require("jiti")(__dirname);
 
 // Import env here to validate during build. Using jiti we can import .ts files :)
-jiti("./app/env");
+jiti("./src/app/env.ts");
 
 // REVIEW: Remove this
 const PARTYKIT_HOST = process.env.NEXT_PUBLIC_PARTYKIT_HOST || "127.0.0.1:1999";
