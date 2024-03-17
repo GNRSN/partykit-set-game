@@ -28,11 +28,9 @@ export const GameCard = ({
   return (
     <div // Card background
       className={cn(
-        "w-44 h-28 bg-white shadow-md hover:shadow-lg transition-shadow rounded-md m-2 p-2 flex flex-row justify-center items-center gap-2",
+        "w-44 h-28 bg-white shadow-md hover:shadow-xl hover:-translate-y-1 transition-shadow rounded-md m-2 p-2 flex flex-row justify-center items-center gap-2",
         {
-          "hover:outline outline-2 outline-zinc-100":
-            !isSelected && !isWinFlash && !isLoseFlash,
-          "outline outline-2 outline-yellow-400 hover:outline-yellow-500":
+          "outline outline-2 outline-yellow-400 hover:outline-yellow-500 -translate-y-1 shadow-lg":
             isSelected,
           "outline outline-2 outline-green-400": isWinFlash,
           "outline outline-2 outline-red-400": isLoseFlash,
