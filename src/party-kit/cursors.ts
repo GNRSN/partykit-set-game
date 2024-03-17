@@ -6,6 +6,8 @@ export type PartialCursor = {
   pointer: "mouse" | "touch";
 };
 
+type CountryType = string | null;
+
 export type Cursor = PartialCursor & {
   country: CountryType;
   lastUpdate: number;
@@ -29,8 +31,6 @@ type RemoveMessage = {
   type: "remove";
   id: string; // websocket.id
 };
-
-type CountryType = string | null;
 
 type CursorState = Partial<Cursor>;
 
