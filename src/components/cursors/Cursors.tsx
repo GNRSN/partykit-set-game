@@ -1,11 +1,11 @@
 "use client";
 
-import { useCursors } from "./cursors-provider";
+import { useCursorsContext } from "./cursors-provider";
 import MyCursor from "./MyCursor";
 import OtherCursor from "./OtherCursor";
 
-export default function Cursors() {
-  const { others } = useCursors();
+export function Cursors() {
+  const { others } = useCursorsContext();
   return (
     <div
       className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-50"

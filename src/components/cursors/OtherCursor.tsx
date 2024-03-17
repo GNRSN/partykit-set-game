@@ -1,7 +1,7 @@
 import { useCallback, useLayoutEffect, useRef } from "react";
 import { Cursor } from "@/party-kit/cursors";
 
-import { useCursors } from "./cursors-provider";
+import { useCursorsContext } from "./cursors-provider";
 
 function getFlagEmoji(countryCode: string) {
   const codePoints = countryCode
@@ -13,7 +13,7 @@ function getFlagEmoji(countryCode: string) {
 
 function OtherCursorImpl(props: { cursor: Cursor }) {
   const { cursor } = props;
-  const { windowDimensions } = useCursors();
+  const { windowDimensions } = useCursorsContext();
   const fill = "#04f";
   const rCursor = useRef<HTMLDivElement>(null);
 
@@ -77,7 +77,7 @@ function OtherCursorImpl(props: { cursor: Cursor }) {
 
 export default function OtherCursor(props: { id: string }) {
   const { id } = props;
-  const { others } = useCursors();
+  const { others } = useCursorsContext();
   const cursor = others[id];
   if (!cursor) return null;
   return <OtherCursorImpl cursor={cursor} />;

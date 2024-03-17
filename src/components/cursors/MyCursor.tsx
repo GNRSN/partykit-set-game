@@ -1,9 +1,9 @@
 import { useCallback, useLayoutEffect, useRef } from "react";
 
-import { useCursors } from "./cursors-provider";
+import { useCursorsContext } from "./cursors-provider";
 
 export default function MyCursor() {
-  const { myCursor, windowDimensions } = useCursors();
+  const { myCursor, windowDimensions } = useCursorsContext();
   const fill = "#000";
   const rCursor = useRef<HTMLDivElement>(null);
 
