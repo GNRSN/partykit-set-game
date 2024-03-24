@@ -2,9 +2,9 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="py-4 px-4 sm:px-6 w-full">
-      <div className="pt-4 max-w-7xl m-auto text-sm text-stone-400 flex flex-row justify-between">
-        <div className="flex flex-col gap-1 justify-start">
+    <footer className="w-full px-4 py-4 sm:px-6">
+      <div className="m-auto flex max-w-7xl flex-row items-center justify-between pt-4 text-sm text-stone-400">
+        <div className="flex flex-col justify-start gap-1">
           <p>
             Built with{" "}
             <Link href="https://nextjs.org" className="underline">
@@ -19,7 +19,7 @@ export default function Footer() {
         <div className="flex flex-col justify-end">
           <Link
             href="https://github.com/GNRSN/partykit-set-game"
-            className="bg-stone-200 hover:bg-stone-300 p-2 rounded text-stone-600 whitespace-nowrap"
+            className="whitespace-nowrap rounded bg-stone-200 p-2 text-stone-600 hover:bg-stone-300"
           >
             View on GitHub
           </Link>
