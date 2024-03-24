@@ -6,6 +6,7 @@ import {
   createSetMessage,
   parseUpdateMessage,
 } from "@/party-kit/match-game/types";
+import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
 import usePartySocket from "partysocket/react";
 
 import { GameCard } from "@/components/game/GameCard";
@@ -77,10 +78,11 @@ export const GameOfMatch = ({ initial, party }: PageProps) => {
 
   return (
     <>
-      <section>
-        <div className="text-center text-xs italic text-zinc-500">
-          {score} matches found
+      <section className="flex flex-row justify-between text-xs text-zinc-500">
+        <div className="text-center ">
+          How to play <OpenInNewWindowIcon className="inline" />
         </div>
+        <div className="text-center  italic ">{score} matches found</div>
       </section>
       <section className="flex w-full items-center justify-center">
         <div className="relative">
