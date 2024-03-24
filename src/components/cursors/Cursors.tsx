@@ -8,7 +8,7 @@ export function Cursors() {
   const { others } = useCursorsContext();
   return (
     <div
-      className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-50"
+      className="pointer-events-none fixed left-0 top-0 z-50 h-full w-full overflow-hidden"
       style={{ minHeight: "100dvh" }}
     >
       {Object.keys(others).map((id) => (
