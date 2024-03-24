@@ -12,6 +12,7 @@ module.exports = {
     "prettier-plugin-tailwindcss",
   ],
   importOrder: [
+    "<BUILTIN_MODULES>",
     "^(react/(.*)$)|^(react$)",
     "^(next/(.*)$)|^(next$)",
     "<THIRD_PARTY_MODULES>",
@@ -21,8 +22,10 @@ module.exports = {
     "^@/config/(.*)$",
     "^@/utils",
     "^@/hooks/(.*)$",
+    "",
     "^@/components/common/(.*)$",
     "^@/components/(.*)$",
+    "",
     "^@/styles/(.*)$",
     "^@/app/(.*)$",
     "",
@@ -30,11 +33,4 @@ module.exports = {
   ],
   importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
   importOrderTypeScriptVersion: "5.4.2",
-
-  // Prettier warns about these being unused
-  importOrderSeparation: false,
-  importOrderSortSpecifiers: true,
-  importOrderBuiltinModulesToTop: true,
-  importOrderMergeDuplicateImports: true,
-  importOrderCombineTypeAndValueImports: true,
 };
