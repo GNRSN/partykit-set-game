@@ -78,11 +78,11 @@ export const GameOfMatch = ({ initial, party }: PageProps) => {
   return (
     <>
       <section>
-        <div className="italic text-xs text-zinc-500 text-center">
+        <div className="text-center text-xs italic text-zinc-500">
           {score} matches found
         </div>
       </section>
-      <section className="w-full flex justify-center items-center">
+      <section className="flex w-full items-center justify-center">
         <div className="relative">
           {cards.map((row, rowIdx) => {
             const rowNumber = rowIdx + 1;

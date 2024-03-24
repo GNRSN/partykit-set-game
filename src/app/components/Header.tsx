@@ -2,10 +2,10 @@ import Link from "next/link";
 
 export default async function Header() {
   return (
-    <header className="z-10 p-4 sm:p-4 w-full border-b border-stone-300 sticky top-0 bg-white/80 backdrop-blur">
-      <nav className="max-w-7xl m-auto flex justify-between items-center">
+    <header className="sticky top-0 z-10 w-full border-b border-stone-300 bg-white/80 p-4 backdrop-blur sm:p-4">
+      <nav className="m-auto flex max-w-7xl items-center justify-between">
         <Link href="/">
-          <h1 className="font-medium my-2">Match game</h1>
+          <h1 className="my-2 font-medium">Match game</h1>
         </Link>
       </nav>
     </header>

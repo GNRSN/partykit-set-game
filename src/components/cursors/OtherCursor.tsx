@@ -64,7 +64,7 @@ function OtherCursorImpl(props: { cursor: Cursor }) {
         </svg>
       )}
       <div
-        className="absolute text-2xl whitespace-nowrap p-1"
+        className="absolute whitespace-nowrap p-1 text-2xl"
         style={{ top: 10, left: 16 }}
       >
         {flag}

@@ -25,12 +25,12 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <div
-            className="flex flex-col justify-between relative"
+            className="relative flex flex-col justify-between"
             style={{ minHeight: "100dvh" }}
           >
             <Header />
             <div className="flex-grow p-4 sm:p-6">
-              <div className="max-w-7xl m-auto w-full flex flex-col justify-start items-start">
+              <div className="m-auto flex w-full max-w-7xl flex-col items-start justify-start">
                 {children}
               </div>
             </div>

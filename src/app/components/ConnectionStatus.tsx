@@ -53,11 +53,11 @@ export function ConnectionStatus({
   }, [socket]);
 
   return (
-    <div className="z-20 fixed top-6 right-2 flex gap-2 justify-center items-center  px-3 py-1 sm:py-2">
-      <p className="text-xs font-base uppercase tracking-wider leading-none text-stone-500">
+    <div className="fixed right-2 top-6 z-20 flex items-center justify-center gap-2  px-3 py-1 sm:py-2">
+      <p className="font-base text-xs uppercase leading-none tracking-wider text-stone-500">
         ({getCount()}) {display.text}
       </p>
-      <div className={`w-3 h-3 rounded-full ${display.color}`}></div>
+      <div className={`h-3 w-3 rounded-full ${display.color}`}></div>
     </div>
   );
 }

@@ -179,4 +179,3 @@ export const Triangle = ({ card }: { card: Card }) => (
     />
   </svg>
 );
-

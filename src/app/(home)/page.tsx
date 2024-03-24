@@ -33,7 +33,7 @@ export default async function Home() {
 
   // pass initial data to client, which will connect to the room via WebSockets
   return (
-    <div className="w-full flex flex-col gap-4">
+    <div className="flex w-full flex-col gap-4">
       <GameOfMatch
         initial={{
           cards: message.cards as RowOfCards[],
