@@ -6,9 +6,10 @@ import {
   createSetMessage,
   parseUpdateMessage,
 } from "@/party-kit/match-game/types";
-import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
 import usePartySocket from "partysocket/react";
 
+import { Button } from "@/components/common/ui/button";
 import { GameCard } from "@/components/game/GameCard";
 
 import { validateSet } from "../../game-logic/card-logic";
@@ -78,11 +79,8 @@ export const GameOfMatch = ({ initial, party }: PageProps) => {
 
   return (
     <>
-      <section className="flex flex-row justify-between text-xs text-zinc-500">
-        <div className="text-center ">
-          How to play <OpenInNewWindowIcon className="inline" />
-        </div>
-        <div className="text-center  italic ">Collective score: {score} </div>
+      <section className="flex flex-row items-center justify-center text-xs text-zinc-500">
+        <div className="text-center italic ">Collective score: {score} pt</div>
       </section>
       <section className="flex w-full items-center justify-center">
         <div className="relative">
@@ -111,6 +109,11 @@ export const GameOfMatch = ({ initial, party }: PageProps) => {
             );
           })}
         </div>
+      </section>
+      <section className="flex justify-center">
+        <Button variant="ghost" className="text-zing-500 text-xs">
+          How to play <InfoCircledIcon className="ml-1 inline" />
+        </Button>
       </section>
     </>
   );
