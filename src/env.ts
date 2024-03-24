@@ -5,6 +5,7 @@ export const env = createEnv({
   server: {
     // DATABASE_URL: z.string().url(),
     // OPEN_AI_API_KEY: z.string().min(1),
+    SENTRY_AUTH_TOKEN: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_PARTYKIT_HOST: z.string().min(1),
