@@ -5,10 +5,12 @@ import { env } from "../../env";
 import { GameOfMatch } from "./MatchGame";
 
 const PARTYKIT_PROTOCOL =
-  env.NEXT_PUBLIC_PARTYKIT_HOST.startsWith("localhost") ||
-  env.NEXT_PUBLIC_PARTYKIT_HOST.startsWith("127.0.0.1")
-    ? "http"
-    : "https";
+  (
+    env.NEXT_PUBLIC_PARTYKIT_HOST.startsWith("localhost") ||
+    env.NEXT_PUBLIC_PARTYKIT_HOST.startsWith("127.0.0.1")
+  ) ?
+    "http"
+  : "https";
 
 const PARTYKIT_URL = `${PARTYKIT_PROTOCOL}://${env.NEXT_PUBLIC_PARTYKIT_HOST}`;
 

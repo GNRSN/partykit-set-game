@@ -30,16 +30,30 @@ export default function MyCursor() {
   }
 
   return (
-    <div className="absolute" ref={rCursor} style={{ left: -10, top: -10 }}>
+    <div
+      className="absolute"
+      ref={rCursor}
+      style={{ left: -10, top: -10 }}
+    >
       <svg
         height="32"
         viewBox="0 0 32 32"
         width="32"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g fill="none" fillRule="evenodd" transform="translate(9 8)">
-          <path d="M 0 6 L 10 0 L 6 11 L 4 7 L 0 6" fill={fill} />
-          <path d="M 0 6 L 10 0 L 6 11 L 4 7 L 0 6" fill="#fff" />
+        <g
+          fill="none"
+          fillRule="evenodd"
+          transform="translate(9 8)"
+        >
+          <path
+            d="M 0 6 L 10 0 L 6 11 L 4 7 L 0 6"
+            fill={fill}
+          />
+          <path
+            d="M 0 6 L 10 0 L 6 11 L 4 7 L 0 6"
+            fill="#fff"
+          />
         </g>
       </svg>
     </div>

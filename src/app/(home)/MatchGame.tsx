@@ -88,7 +88,10 @@ export const GameOfMatch = ({ initial, party }: PageProps) => {
             const rowNumber = rowIdx + 1;
             return (
               // REVIEW: Using index as key may be risky here
-              <div key={`${rowNumber}`} className={`flex flex-row`}>
+              <div
+                key={`${rowNumber}`}
+                className={`flex flex-row`}
+              >
                 {row.map((card, columnNumber) => (
                   <GameCard
                     key={`${rowNumber}_${columnNumber}`}
@@ -111,7 +114,10 @@ export const GameOfMatch = ({ initial, party }: PageProps) => {
         </div>
       </section>
       <section className="flex justify-center">
-        <Button variant="ghost" className="text-zing-500 text-xs">
+        <Button
+          variant="ghost"
+          className="text-zing-500 text-xs"
+        >
           How to play <InfoCircledIcon className="ml-1 inline" />
         </Button>
       </section>

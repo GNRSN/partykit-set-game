@@ -7,11 +7,17 @@ export default function Footer() {
         <div className="flex flex-col justify-start gap-1">
           <p>
             Built with{" "}
-            <Link href="https://nextjs.org" className="underline">
+            <Link
+              href="https://nextjs.org"
+              className="underline"
+            >
               Next.js
             </Link>{" "}
             and{" "}
-            <Link href="https://partykit.io" className="underline">
+            <Link
+              href="https://partykit.io"
+              className="underline"
+            >
               PartyKit
             </Link>
           </p>

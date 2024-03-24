@@ -94,16 +94,16 @@ export default class CursorsServer implements PartyKit.Server {
     });
 
     const msg =
-      position.x && position.y
-        ? <UpdateMessage>{
-            type: "update",
-            id: connection.id,
-            ...cursor,
-          }
-        : <RemoveMessage>{
-            type: "remove",
-            id: connection.id,
-          };
+      position.x && position.y ?
+        <UpdateMessage>{
+          type: "update",
+          id: connection.id,
+          ...cursor,
+        }
+      : <RemoveMessage>{
+          type: "remove",
+          id: connection.id,
+        };
 
     // Broadcast, excluding self
     this.party.broadcast(JSON.stringify(msg), [connection.id]);

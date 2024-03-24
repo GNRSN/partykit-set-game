@@ -1,4 +1,5 @@
 import { Card, CardShape } from "@/game-logic/card-types";
+
 import { cn } from "@/utils";
 
 import { Circle, Square, Triangle } from "./CardSymbols";
@@ -42,7 +43,10 @@ export const GameCard = ({
         .map((_, index) => {
           const CorrespondingSymbol = SHAPES_TO_SYMBOLS[card.shape];
           return (
-            <div key={index} className="w-1/4">
+            <div
+              key={index}
+              className="w-1/4"
+            >
               <CorrespondingSymbol card={card} />
             </div>
           );

@@ -1,4 +1,5 @@
 import { Card } from "@/game-logic/card-types";
+
 import { cn } from "@/utils";
 
 export const Circle = ({ card }: { card: Card }) => (
@@ -54,9 +55,9 @@ export const Circle = ({ card }: { card: Card }) => (
       })}
       style={{
         fill:
-          card.fill === "striped"
-            ? `url(#diagonalHatch-${card.id})`
-            : undefined,
+          card.fill === "striped" ?
+            `url(#diagonalHatch-${card.id})`
+          : undefined,
       }}
     />
   </svg>
@@ -113,9 +114,9 @@ export const Square = ({ card }: { card: Card }) => (
       })}
       style={{
         fill:
-          card.fill === "striped"
-            ? `url(#diagonalHatch-${card.id})`
-            : undefined,
+          card.fill === "striped" ?
+            `url(#diagonalHatch-${card.id})`
+          : undefined,
       }}
     />
   </svg>
@@ -171,9 +172,9 @@ export const Triangle = ({ card }: { card: Card }) => (
       })}
       style={{
         fill:
-          card.fill === "striped"
-            ? `url(#diagonalHatch-${card.id})`
-            : undefined,
+          card.fill === "striped" ?
+            `url(#diagonalHatch-${card.id})`
+          : undefined,
       }}
     />
   </svg>

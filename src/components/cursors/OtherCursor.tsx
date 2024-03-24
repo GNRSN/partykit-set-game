@@ -39,30 +39,47 @@ function OtherCursorImpl(props: { cursor: Cursor }) {
   const pointer = cursor.pointer ?? "mouse";
 
   return (
-    <div className="absolute" ref={rCursor} style={{ left: 9, top: -3 }}>
-      {pointer === "touch" ? (
+    <div
+      className="absolute"
+      ref={rCursor}
+      style={{ left: 9, top: -3 }}
+    >
+      {pointer === "touch" ?
         <svg
           height="25"
           viewBox="0 0 20 20"
           width="25"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g fill="none" fillRule="evenodd" transform="translate(9 9)">
-            <path d="M 10 6 L 0 0 L 5 11 L 6 7 L 10 6" fill={fill} />
+          <g
+            fill="none"
+            fillRule="evenodd"
+            transform="translate(9 9)"
+          >
+            <path
+              d="M 10 6 L 0 0 L 5 11 L 6 7 L 10 6"
+              fill={fill}
+            />
           </g>
         </svg>
-      ) : (
-        <svg
+      : <svg
           height="25"
           viewBox="0 0 20 20"
           width="25"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g fill="none" fillRule="evenodd" transform="translate(9 9)">
-            <path d="M 10 6 L 0 0 L 5 11 L 6 7 L 10 6" fill={fill} />
+          <g
+            fill="none"
+            fillRule="evenodd"
+            transform="translate(9 9)"
+          >
+            <path
+              d="M 10 6 L 0 0 L 5 11 L 6 7 L 10 6"
+              fill={fill}
+            />
           </g>
         </svg>
-      )}
+      }
       <div
         className="absolute whitespace-nowrap p-1 text-2xl"
         style={{ top: 10, left: 16 }}
