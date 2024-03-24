@@ -82,7 +82,7 @@ export const GameOfMatch = ({ initial, party }: PageProps) => {
         <div className="text-center ">
           How to play <OpenInNewWindowIcon className="inline" />
         </div>
-        <div className="text-center  italic ">{score} matches found</div>
+        <div className="text-center  italic ">Collective score: {score} </div>
       </section>
       <section className="flex w-full items-center justify-center">
         <div className="relative">

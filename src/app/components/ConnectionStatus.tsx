@@ -53,7 +53,7 @@ export function ConnectionStatus({
   }, [socket]);
 
   return (
-    <div className="fixed right-2 top-6 z-20 flex items-center justify-center gap-2  px-3 py-1 sm:py-2">
+    <div className="fixed right-1 top-4 z-20 flex items-center justify-center gap-2 px-2 py-1  sm:py-2 md:right-2 md:top-6">
       <p className="font-base text-xs uppercase leading-none tracking-wider text-stone-500">
         ({getCount()}) {display.text}
       </p>
