@@ -1,6 +1,5 @@
 import { Card, CardShape } from "@/game-logic/card-types";
-
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils";
 
 import { Circle, Square, Triangle } from "./CardSymbols";
 

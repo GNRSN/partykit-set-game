@@ -1,6 +1,5 @@
 import { Card } from "@/game-logic/card-types";
-
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils";
 
 export const Circle = ({ card }: { card: Card }) => (
   <svg viewBox="0 0 28 28">
