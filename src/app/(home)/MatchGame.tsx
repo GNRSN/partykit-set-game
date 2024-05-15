@@ -13,6 +13,7 @@ import { Button } from "@/components/common/ui/button";
 import { GameCard } from "@/components/game/GameCard";
 
 import { validateSet } from "../../game-logic/card-logic";
+import { TutorialModal } from "./TutorialModal";
 
 type PageProps = {
   party: {
@@ -26,6 +27,8 @@ type PageProps = {
 };
 
 export const GameOfMatch = ({ initial, party }: PageProps) => {
+  return null;
+
   // use server-rendered initial data
   const [cards, setCards] = useState(initial.cards);
   const [score, setScore] = useState(initial.score);
@@ -114,12 +117,14 @@ export const GameOfMatch = ({ initial, party }: PageProps) => {
         </div>
       </section>
       <section className="flex justify-center">
-        <Button
-          variant="ghost"
-          className="text-zing-500 text-xs"
-        >
-          How to play <InfoCircledIcon className="ml-1 inline" />
-        </Button>
+        <TutorialModal>
+          <Button
+            variant="ghost"
+            className="text-xs text-zinc-500"
+          >
+            How to play <InfoCircledIcon className="ml-1 inline" />
+          </Button>
+        </TutorialModal>
       </section>
     </>
   );
